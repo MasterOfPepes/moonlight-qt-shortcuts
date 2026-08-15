@@ -41,15 +41,15 @@ if /I "%BUILD_CONFIG%"=="debug" (
 
 rem Locate qmake and determine if we're using qmake.exe or (host-)qmake.bat
 rem (host-)qmake.bat is an ARM64 forwarder to the x64 version of qmake.exe
-where /q qmake.bat
+where qmake.bat
 if !ERRORLEVEL! EQU 0 (
     set QMAKE_CMD=call qmake.bat
 ) else (
-    where /q host-qmake.bat
+    where host-qmake.bat
     if !ERRORLEVEL! EQU 0 (
         set QMAKE_CMD=call host-qmake.bat
     ) else (
-        where /q qmake.exe
+        where qmake.exe
         if !ERRORLEVEL! EQU 0 (
             set QMAKE_CMD=qmake.exe
         ) else (
