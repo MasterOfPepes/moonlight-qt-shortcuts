@@ -185,6 +185,16 @@ void SdlInputHandler::handleKeyEvent(SDL_KeyboardEvent* event)
         return;
     }
 
+    // Check for our new special key to return input to the host (right control)
+    if((event->state == SDL_PRESSED) && (event->keysym.mod & KMOD_RCTRL)) {
+
+        //ungrabs input·s from the client and sends them to the host
+        if (m_SpecialKeyCombos[KeyComboUngrabInput].enabled) {
+            performSpecialKeyCombo(m_SpecialKeyCombos[KeyComboUngrabInput].keyCombo);
+            return;
+        }
+    }
+
     // Check for our special key combos
     if ((event->state == SDL_PRESSED) &&
             (event->keysym.mod & KMOD_CTRL) &&
